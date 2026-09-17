@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Project Name] — Case Study</title>
+
+<!--
+  HOW TO CUSTOMIZE THIS PAGE
+  1. Search for anything in [square brackets] and replace it with your real content.
+  2. In the "Live demo" section, replace the iframe src with your Streamlit app URL
+     (append ?embed=true to hide Streamlit's own toolbar/footer).
+  3. Replace the four architecture-diagram labels with your actual system's stages.
+  4. Update the results numbers with your real metrics, or remove that section.
+  5. Save this file as index.html at the root of a GitHub repo, then turn on
+     GitHub Pages in the repo's Settings → Pages.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #fcfcfa;
+    --paper-dim: #f3f2ee;
+    --ink: #1f2733;
+    --ink-soft: #3d4552;
+    --navy: #24466b;
+    --navy-dim: #4c6a8a;
+    --copper: #b8752e;
+    --slate: #6b7280;
+    --rule: #dcdad3;
+    --max: 700px;
+    --max-wide: 920px;
+  }
+
+  * { box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--navy); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 3px;
+  }
+
+  h1, h2 {
+    font-family: "Source Serif 4", serif;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .wrap { max-width: var(--max-wide); margin: 0 auto; padding: 0 28px; }
+  .col  { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- identity strip ---------- */
+  .identity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 40px;
+    padding-bottom: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--slate);
+  }
+  .identity .name { color: var(--ink-soft); font-weight: 500; }
+  .identity nav { display: flex; gap: 20px; }
+  .identity nav a { color: var(--slate); text-decoration: none; }
+  .identity nav a:hover { color: var(--navy); text-decoration: underline; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 72px 0 56px;
+    animation: rise 0.6s ease-out;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero .cred {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--navy-dim);
+    margin: 0 0 18px;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+  }
+  .hero .subtitle {
+    font-family: "Source Serif 4", serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 22px 0 32px;
+  }
+  .cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .cta-primary, .cta-secondary {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 11px 20px;
+    display: inline-block;
+  }
+  .cta-primary {
+    background: var(--navy);
+    color: var(--paper);
+  }
+  .cta-primary:hover { background: var(--ink); }
+  .cta-secondary {
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+  .cta-secondary:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* ---------- abstract ---------- */
+  .abstract {
+    padding: 40px 0 64px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .abstract p {
+    font-family: "Source Serif 4", serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ---------- generic section ---------- */
+  section.block { padding: 64px 0; }
+  section.block + section.block { border-top: 1px solid var(--rule); }
+  .block h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+  .block p { margin: 0 0 16px; color: var(--ink-soft); }
+
+  /* ---------- approach / PRD summary ---------- */
+  .prd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 40px;
+    margin-top: 28px;
+  }
+  .prd-item dt {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    color: var(--copper);
+    margin-bottom: 6px;
+  }
+  .prd-item dd { margin: 0; color: var(--ink); }
+
+  /* ---------- architecture diagram ---------- */
+  .diagram { margin-top: 32px; }
+  .diagram svg { width: 100%; height: auto; }
+  .diagram figcaption {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    color: var(--slate);
+    margin-top: 14px;
+  }
+
+  /* ---------- live demo ---------- */
+  .demo-frame {
+    border: 1px solid var(--rule);
+    background: var(--paper-dim);
+    margin-top: 28px;
+  }
+  .demo-frame iframe {
+    width: 100%;
+    height: 720px;
+    border: 0;
+    display: block;
+  }
+  .demo-caption {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    color: var(--slate);
+    margin-top: 12px;
+  }
+
+  /* ---------- results ---------- */
+  .results-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .result {
+    flex: 1 1 180px;
+    padding: 24px 24px 24px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .result .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 2.1rem;
+    color: var(--ink);
+    display: block;
+  }
+  .result .label {
+    color: var(--slate);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 56px 0 60px;
+    border-top: 1px solid var(--rule);
+  }
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .stack-tags span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+  }
+  footer .links { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+  footer .links a { text-decoration: none; font-size: 14px; }
+  footer .links a:hover { text-decoration: underline; }
+  footer .cred-line {
+    color: var(--slate);
+    font-size: 13.5px;
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .hero { padding: 48px 0 40px; }
+    .prd-grid { grid-template-columns: 1fr; }
+    .demo-frame iframe { height: 480px; }
+    .cta-row { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="identity">
+    <span class="name">[Your Name]</span>
+    <nav>
+      <a href="[Resume link]">Resume</a>
+      <a href="[LinkedIn link]">LinkedIn</a>
+      <a href="[GitHub link]">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<div class="col">
+
+  <header class="hero">
+    <p class="cred">PhD in Computer Science, working as an AI engineer on agentic systems.</p>
+    <h1>[Project Name]</h1>
+    <p class="subtitle">One sentence on what this system does and for whom — written the way a user would describe it, not the way the code describes it.</p>
+    <div class="cta-row">
+      <a class="cta-primary" href="#demo">View live demo</a>
+      <a class="cta-secondary" href="[PRD link]">Read the PRD</a>
+    </div>
+  </header>
+
+  <section class="abstract">
+    <p>[Two or three sentences summarizing the whole case study: the problem, what you built, and the outcome. Written like the abstract of a paper — someone should be able to read only this and still understand the project.]</p>
+  </section>
+
+  <section class="block" id="problem">
+    <h2>The problem</h2>
+    <p>[Describe the problem in concrete terms: who has it, how it shows up today, and why it's costly or annoying to leave unsolved. One or two short paragraphs — specifics beat generalities here.]</p>
+  </section>
+
+  <section class="block" id="approach">
+    <h2>Approach</h2>
+    <p>[A short paragraph on how you framed the solution and why you made the key design decisions you did.]</p>
+    <dl class="prd-grid">
+      <div class="prd-item">
+        <dt>Objective</dt>
+        <dd>[What success looks like, in one sentence.]</dd>
+      </div>
+      <div class="prd-item">
+        <dt>Primary users</dt>
+        <dd>[Who this is built for.]</dd>
+      </div>
+      <div class="prd-item">
+        <dt>Key features</dt>
+        <dd>[Feature one, feature two, feature three.]</dd>
+      </div>
+      <div class="prd-item">
+        <dt>Success metric</dt>
+        <dd>[The number you'd track post-launch.]</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="block" id="architecture">
+    <h2>System architecture</h2>
+    <p>[One sentence orienting the reader before they look at the diagram.]</p>
+    <figure class="diagram">
+      <svg viewBox="0 0 860 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram showing four stages connected left to right">
+        <g font-family="IBM Plex Mono, monospace" font-size="13" fill="#1f2733">
+          <rect x="10" y="45" width="180" height="70" fill="none" stroke="#24466b" stroke-width="1.5"/>
+          <text x="100" y="75" text-anchor="middle">[Input /</text>
+          <text x="100" y="93" text-anchor="middle">user message]</text>
+
+          <rect x="240" y="45" width="180" height="70" fill="none" stroke="#24466b" stroke-width="1.5"/>
+          <text x="330" y="75" text-anchor="middle">[Orchestrator /</text>
+          <text x="330" y="93" text-anchor="middle">reasoning layer]</text>
+
+          <rect x="470" y="45" width="180" height="70" fill="none" stroke="#24466b" stroke-width="1.5"/>
+          <text x="560" y="75" text-anchor="middle">[Tools /</text>
+          <text x="560" y="93" text-anchor="middle">integrations]</text>
+
+          <rect x="700" y="45" width="150" height="70" fill="none" stroke="#24466b" stroke-width="1.5"/>
+          <text x="775" y="75" text-anchor="middle">[Output /</text>
+          <text x="775" y="93" text-anchor="middle">action]</text>
+
+          <line x1="190" y1="80" x2="238" y2="80" stroke="#6b7280" stroke-width="1.5"/>
+          <polygon points="238,75 238,85 246,80" fill="#6b7280"/>
+          <line x1="420" y1="80" x2="468" y2="80" stroke="#6b7280" stroke-width="1.5"/>
+          <polygon points="468,75 468,85 476,80" fill="#6b7280"/>
+          <line x1="650" y1="80" x2="698" y2="80" stroke="#6b7280" stroke-width="1.5"/>
+          <polygon points="698,75 698,85 706,80" fill="#6b7280"/>
+        </g>
+      </svg>
+      <figcaption>[Replace this schematic with your actual system's stages and labels.]</figcaption>
+    </figure>
+  </section>
+
+  <section class="block" id="demo">
+    <h2>Live demo</h2>
+    <p>[A sentence telling the visitor what to try first in the app below.]</p>
+    <div class="demo-frame">
+      <iframe src="https://your-app-name.streamlit.app/?embed=true" loading="lazy" title="[Project Name] live demo"></iframe>
+    </div>
+    <p class="demo-caption">Running on Streamlit Community Cloud. If the app is asleep, give it a few seconds to wake up.</p>
+  </section>
+
+  <section class="block" id="results">
+    <h2>Results and learnings</h2>
+    <p>[A short paragraph on what you learned building this, or how it performed — technically and, if relevant, for the people who'd use it.]</p>
+    <div class="results-row">
+      <div class="result">
+        <span class="num">[3]</span>
+        <span class="label">[core workflows automated]</span>
+      </div>
+      <div class="result">
+        <span class="num">[&lt;2s]</span>
+        <span class="label">[median response time]</span>
+      </div>
+      <div class="result">
+        <span class="num">[1 wk]</span>
+        <span class="label">[to first working prototype]</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="wrap">
+  <footer>
+    <div class="stack-tags">
+      <span>[Python]</span>
+      <span>[Streamlit]</span>
+      <span>[LLM API]</span>
+      <span>[RAG]</span>
+      <span>[Your other tools]</span>
+    </div>
+    <div class="links">
+      <a href="[Resume link]">Resume</a>
+      <a href="[LinkedIn link]">LinkedIn</a>
+      <a href="[GitHub link]">GitHub</a>
+      <a href="mailto:[your@email.com]">Email</a>
+    </div>
+    <p class="cred-line">PhD, Computer Science. Machine learning for software fault prediction.</p>
+  </footer>
+</div>
+
+</body>
+</html>
